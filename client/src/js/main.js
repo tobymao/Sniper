@@ -1,4 +1,4 @@
-var Three = require('three');
+var Three = require('./libs/three.min.js');
 
 window.onload = function() {
   console.log('loaded');

@@ -15,7 +15,8 @@ var SRC_JS = './src/js/**/*.js';
 
 // Lint Task
 gulp.task('lint', function() {
-  return gulp.src(SRC_JS)
+  // Don't lint the libs
+  return gulp.src([SRC_JS, '!./src/js/libs/**'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });

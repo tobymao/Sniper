@@ -8,8 +8,18 @@
   },
   "author": "Toby Mao",
   "license": "",
+  "browser": {
+    "three": "./src/js/libs/three.min.js"
+  },
+  "browserify-shim": {
+    "three": "global:THREE"
+  },
+  "browserify": {
+    "transform": [ "browserify-shim" ]
+  },
   "devDependencies": {
     "browserify": "^4.2.1",
+    "browserify-shim": "^3.6.0",
     "gulp": "^3.8.6",
     "gulp-jshint": "^1.7.1",
     "gulp-util": "^2.2.20",

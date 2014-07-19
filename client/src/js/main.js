@@ -1,6 +1,12 @@
-var Three = require('./libs/three.min.js');
+var Arena = require('./controllers/Arena.js');
 
 window.onload = function() {
-  console.log('loaded');
-  console.log(Three);
+  // Load up the arena
+  var canvasElement = document.getElementById('main-canvas');
+
+  var arena = new Arena({
+    renderTarget: canvasElement  
+  });
+
+  arena.run();
 };

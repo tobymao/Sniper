@@ -28,7 +28,7 @@ var bundleStreamBuilder = function(watch) {
     bundleCreator = watchify;
   }
 
-  var bundler = bundleCreator('./src/js/main.js');
+  var bundler = bundleCreator('./src/js/Main.js');
 
   function bundle() {
     return bundler.bundle({
@@ -63,7 +63,7 @@ gulp.task('watch', function() {
   gulp.watch(SRC_HTML, ['html']);
   gulp.watch(SRC_CSS, ['css']);
   gulp.watch(SRC_JS, ['lint']);
-  return bundleStreamBuilder(true);
+  bundleStreamBuilder(true);
 });
 
 gulp.task('html', function() {

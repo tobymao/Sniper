@@ -61,6 +61,7 @@ gulp.task('js', function() {
 gulp.task('watch', function() {
   gulp.watch(SRC_HTML, ['html']);
   gulp.watch(SRC_CSS, ['css']);
+  gulp.watch(SRC_JS, ['lint']);
   return bundleStreamBuilder(true);
 });
 

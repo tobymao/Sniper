@@ -8,9 +8,11 @@ var jshint = require('gulp-jshint');
 var browserify = require('browserify');
 var watchify = require('watchify');
 var source = require('vinyl-source-stream');
+var less = require('gulp-less');
+var sourcemaps = require('gulp-sourcemaps');
 
 var SRC_HTML = './src/html/**/*.html';
-var SRC_CSS = './src/css/**/*.css';
+var SRC_LESS = './src/less/**/*.less';
 var SRC_JS = './src/js/**/*.js';
 
 // Lint Task
@@ -59,22 +61,31 @@ gulp.task('js', function() {
   return bundleStreamBuilder();
 });
 
-gulp.task('watch', function() {
-  gulp.watch(SRC_HTML, ['html']);
-  gulp.watch(SRC_CSS, ['css']);
-  gulp.watch(SRC_JS, ['lint']);
-  bundleStreamBuilder(true);
-});
-
 gulp.task('html', function() {
   return gulp.src(SRC_HTML)
     .pipe(gulp.dest('./build/'));
 });
 
-gulp.task('css', function() {
-  return gulp.src(SRC_CSS)
-    .pipe(gulp.dest('./build/css/'));
+gulp.task('less', function() {
+  if (argv.production) {
+    return gulp.src(SRC_LESS)
+      .pipe(less())
+      .pipe(gulp.dest('./build/css/'));
+  } else {
+    return gulp.src(SRC_LESS)
+      .pipe(sourcemaps.init())
+      .pipe(less())
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest('./build/css/'));
+  }
 });
 
-gulp.task('default', ['lint', 'html', 'css', 'js']);
-gulp.task('dev', ['lint', 'html', 'css', 'watch']);
+gulp.task('watch', function() {
+  gulp.watch(SRC_HTML, ['html']);
+  gulp.watch(SRC_LESS, ['less']);
+  gulp.watch(SRC_JS, ['lint']);
+  bundleStreamBuilder(true);
+});
+
+gulp.task('default', ['lint', 'html', 'less', 'js']);
+gulp.task('dev', ['lint', 'html', 'less', 'watch']);
